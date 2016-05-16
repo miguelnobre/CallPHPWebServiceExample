@@ -20,6 +20,9 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import pt.iscte.dam.callphpwebserviceexample.model.User;
+import pt.iscte.dam.callphpwebserviceexample.util.JsonParser;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView txtUsername = null;
@@ -72,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Object response) {
                         System.out.println("Resposta de Sucesso: " + response.toString());
                         Toast.makeText(getBaseContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        User user = JsonParser.getInstance().stringToObject(response.toString(), User.class);
+                        System.out.print(user.getNome());
                     }
                 },
                 new Response.ErrorListener() {
