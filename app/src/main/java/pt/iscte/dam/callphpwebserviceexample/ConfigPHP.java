@@ -6,7 +6,8 @@ package pt.iscte.dam.callphpwebserviceexample;
 public class ConfigPHP {
 
     //URL to our login.php file
-    public static final String LOGIN_URL = "http://miguelnobre.com/php/Login.php";
+    public static final String LOGIN_URL = "http://miguelnobre.com/php/EasyTrip/EasyTripLogin.php";
+    public static final String REGISTER_URL = "http://miguelnobre.com/php/EasyTrip/EasyTripRegister.php";
 
     //Keys for email and password as defined in our $_POST['key'] in login.php
     public static final String KEY_EMAIL = "username";

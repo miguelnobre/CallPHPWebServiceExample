@@ -11,15 +11,18 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.w3c.dom.Text;
 
 public class RegisterUser extends AppCompatActivity {
 
+    private TextView txtNome = null;
+    private TextView txtIdade = null;
     private TextView txtUsername = null;
     private TextView txtPassword = null;
-    private TextView txtNome= null;
+    private TextView txtEmail = null;
 
     private Button btnRegistarUser = null;
     private Button btnVoltar = null;
@@ -29,9 +32,13 @@ public class RegisterUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
+        txtNome = (TextView) findViewById(R.id.txtNewNome);
+        txtIdade = (TextView) findViewById(R.id.txtIdade);
+
         txtUsername = (TextView) findViewById(R.id.txtNewUsername);
         txtPassword = (TextView) findViewById(R.id.txtNewPassword);
-        txtNome = (TextView) findViewById(R.id.txtNewNome);
+
+        txtEmail = (TextView) findViewById(R.id.txtEmail);
 
         btnRegistarUser = (Button) findViewById(R.id.btnRegistUser);
         btnRegistarUser.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +58,14 @@ public class RegisterUser extends AppCompatActivity {
     }
 
     private void registarUser() {
+
+        String nome = txtNome.getText().toString();
+        String idade = txtIdade.getText().toString();
         String username = txtUsername.getText().toString();
         String password = txtPassword.getText().toString();
-        String nome = txtNome.getText().toString();
+        String email = txtEmail.getText().toString();
 
-        CustomStringRequest newUserRequest = new CustomStringRequest(Request.Method.POST, ConfigPHP.LOGIN_URL,
+        CustomStringRequest newUserRequest = new CustomStringRequest(Request.Method.POST, ConfigPHP.REGISTER_URL,
                 new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
@@ -74,10 +84,12 @@ public class RegisterUser extends AppCompatActivity {
         );
 
         //Parametros POST necessarios para o Login
-        newUserRequest.addParam("action", "register");
+        newUserRequest.addParam("name", nome);
+        newUserRequest.addParam("age", idade);
         newUserRequest.addParam("username", username);
         newUserRequest.addParam("password", password);
-        newUserRequest.addParam("nome", nome);
+        newUserRequest.addParam("email", email);
+
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(newUserRequest);

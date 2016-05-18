@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-        //addUser("nome user", "user1", "userx");
     }
 
     private void doLogin() {
@@ -74,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Object response) {
                         System.out.println("Resposta de Sucesso: " + response.toString());
-                        Toast.makeText(getBaseContext(), response.toString(), Toast.LENGTH_LONG).show();
-                        User user = JsonParser.getInstance().stringToObject(response.toString(), User.class);
-                        System.out.print(user.getNome());
+                        try {
+                            User user = JsonParser.getInstance().stringToObject(response.toString(), User.class);
+                            Toast.makeText(getBaseContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Toast.makeText(getBaseContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -123,6 +123,4 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(csr);
     }
-
-
 }
